@@ -1,6 +1,24 @@
+from flask import Flask , render_template
 from Tablero import Tablero
 
-if __name__ == "__main__":
+
+app = Flask(__name__,static_url_path='', 
+            static_folder='static',
+            template_folder='templates')
+
+
+@app.route('/')
+def home():
+
+    gameplay()
+    return render_template('home.html')
+
+
+app.run(Host='0.0.0.0')
+
+
+
+def gameplay():
 
     juego_nuevo = Tablero()
     for i in juego_nuevo.tabla:
