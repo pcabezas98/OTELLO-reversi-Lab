@@ -8,22 +8,264 @@
 {% block content %}
   
 <body>
+  <style>
+    #main.container
+    {
+      text-align: center;
+    }
 
-  OTELLO
+    .disabled
+    {
+      opacity: 0.5;
+    }
+
+    #message
+    {
+      margin-top: 1em;
+    }
+
+    #preference-pane
+    {
+      margin-top: 2em;
+    }
+
+    #player-type-forms
+    {
+      display: inline-block;
+    }
+    #black-player-level,
+    #white-player-level
+    {
+      width: auto;
+    }
+    #swap-player-types-button
+    {
+      position: relative;
+      top: -2em;
+    }
+
+    #add-new-ai-button
+    {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    #game-board > table
+    {
+      margin: 0 auto;
+    }
+
+    #game-board > table th
+    {
+      margin: 0;
+      padding: 0.125em 0.25em;
+      line-height: 100%;
+    }
+
+    #game-board > table .cell
+    {
+      background: rgb(192, 178, 133);
+      border: 1px solid #ccc;
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+    }
+    #game-board > table .cell.attackable
+    {
+      cursor: pointer;
+    }
+    #game-board > table .cell.attackable:hover
+    {
+      background: #cc0;
+    }
+
+    #game-board > table .cell > .disc
+    {
+      display: inline-block;
+      width: 2em;
+      height: 2em;
+      border-radius: 1em;
+      margin: 0.25em;
+    }
+    #game-board > table .cell.white > .disc
+    {
+      background: #fff;
+    }
+    #game-board > table .cell.black > .disc
+    {
+      background: #000;
+    }
+    #game-board > table .cell.attackable > .disc
+    {
+      opacity: 0.2;
+    }
+    #game-board > table .cell.attackable:hover > .disc
+    {
+      opacity: 1.0;
+    }
+  </style>
+  <br>
+  <div class="mx-auto" style="width: 300px;">
+    <h1>Othello reversi</h1>
+  </div>
+  <br>
+  <br>
+  <div id="main" class="container">
+    <div id="game-board">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>a</th>
+            <th>b</th>
+            <th>c</th>
+            <th>d</th>
+            <th>e</th>
+            <th>f</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>1</th>
+            <td class="cell empty " id="cell_0_0">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_0_1">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_0_2">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_0_3">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_0_4">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_0_5">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>2</th>
+            <td class="cell empty " id="cell_1_0">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_1_1">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_1_2">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_1_3">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_1_4">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_1_5">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>3</th>
+            <td class="cell empty " id="cell_2_0">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_2_1">
+              <span class="disc"></span>
+            </td>
+            <td class="cell white " id="cell_2_2">
+              <span class="disc"></span>
+            </td>
+            <td class="cell black " id="cell_2_3">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_2_4">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_2_5">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>4</th>
+            <td class="cell empty " id="cell_3_0">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_3_1">
+              <span class="disc"></span>
+            </td>
+            <td class="cell black " id="cell_3_2">
+              <span class="disc"></span>
+            </td>
+            <td class="cell white " id="cell_3_3">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_3_4">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_3_5">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>5</th>
+            <td class="cell empty " id="cell_4_0">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_4_1">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_4_2">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_4_3">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_4_4">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_4_5">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>6</th>
+            <td class="cell empty " id="cell_5_0">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_5_1">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_5_2">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_5_3">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_5_4">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty " id="cell_5_5">
+              <span class="disc"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
 
 
 
-  
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  
-    <!-- Custom scripts for this template -->
-    <script src="js/stylish-portfolio.min.js"></script>
-  
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js%22%3E"></script>
+
+    <script src="juego.js"></script>
   </body>
   
 {% endblock  %}
