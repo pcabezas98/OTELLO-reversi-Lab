@@ -1,7 +1,10 @@
-var matrix = [];
-var filas = [0, 0, 0, 0, 0, 0]
-for(var i=0; i<6; i++) {
-    matrix[i] = new Array(filas);
+console.log('hola mundo');
+
+
+function cambiar_ficha(){
+    $('#cell_3_2').removeClass('cell black attackable').addClass('cell black');
+    
 }
+
 
 
