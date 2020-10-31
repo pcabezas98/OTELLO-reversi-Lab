@@ -13,16 +13,13 @@ def home():
     content = request.get_json(silent=True)
     print("contac",content)
 
-    juego_nuevo = gameplay()
+    juego_nuevo = gameplay(juego_actual)
 
     print("tablero",juego_nuevo.tabla)
-
-    return render_template('home.html', juego_nuevo.tabla)
+    return render_template('home.html', tabla=juego_nuevo.tabla)
 
 
 app.run(Host='0.0.0.0')
-
-
 
 def gameplay():
     

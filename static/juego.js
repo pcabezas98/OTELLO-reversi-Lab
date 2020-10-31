@@ -6,6 +6,11 @@ var concat = posx + posy;
 
 console.log(concat);
 
+$(document).ready(function(){
+    $("#Q01").val();
+    console.log("cambio en valor tabla");
+});
+
 function cambiar_ficha(concat){
     console.log(concat);
     console.log("paso");
