@@ -1,3 +1,5 @@
+#from ia import ia
+
 #negra = 1 "f_negra"
 #blanca = 2 "f_blanca"
 #camino = 0
@@ -7,6 +9,14 @@ class Tablero:
     x = 0
     y = 0
     tabla = [[]]
+    tabla_valorada = [
+        [100,  -10,  3,  3, -10, 100],
+        [-10,  -20, -3, -3, -20, -10],
+          [3,   -3,  1,  1, -3,   3],
+          [3,   -3,  1,  1, -3,   3],
+        [-10,  -20, -3, -3, -20, -10],
+        [100,  -10,  3,  3, -10, 100]
+        ]
 
     def __init__(self):
         self.x = 6
@@ -25,6 +35,16 @@ class Tablero:
 
 
 
+        
+       
+    def calculo_de_flips(self,x1,y1, x2, y2):
+        if(direccion == "arriba"):
+            aux = 1 
+            while (x1-aux != x2):
+                self.tabla[x1-aux][y1] = num_evaluar
+                aux = aux + 1 
+
+
     def limpia_tablero(self):
         for i in range(self.x):
             for j in range(self.y):
@@ -32,6 +52,19 @@ class Tablero:
                 if(self.tabla[i][j] == -1 or self.tabla[i][j] == -2):
                     self.tabla[i][j] = 0 
 
+    def actualiza_movimientos(self, quien_juega): 
+        aux = 0
+        for i in range(self.x):
+            for j in range(self.y):
+
+                if(self.tabla[i][j] == quien_juega):
+                    self.movimiento_posible(i,j,quien_juega)
+                    aux = aux + 1
+
+        if aux == 0:
+            return 0
+        else:
+            return 1
     
     def movimiento_posible(self ,cord_x, cord_y, num_evaluar):
         if(num_evaluar == 1):
@@ -222,7 +255,7 @@ class Tablero:
                 aux = aux + 1
 
 
-    def jugada(self,cord_x, cord_y, num_evaluar):
+    def aplica_jugada(self,cord_x, cord_y, num_evaluar):
         if(num_evaluar == 1):
             num_adversario = 2
         else:
