@@ -1,4 +1,4 @@
-from flask import Flask , render_template
+from flask import Flask , render_template, request
 from Tablero import Tablero
 #from ia import ia
 
@@ -8,11 +8,16 @@ app = Flask(__name__,static_url_path='',
             template_folder='templates')
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    content = request.get_json(silent=True)
+    print("contac",content)
 
-    gameplay()
-    return render_template('home.html')
+    juego_nuevo = gameplay()
+
+    print("tablero",juego_nuevo.tabla)
+
+    return render_template('home.html', juego_nuevo.tabla)
 
 
 app.run(Host='0.0.0.0')
@@ -20,7 +25,7 @@ app.run(Host='0.0.0.0')
 
 
 def gameplay():
-
+    
     juego_nuevo = Tablero()
     for i in juego_nuevo.tabla:
         print(i)
@@ -51,4 +56,6 @@ def gameplay():
 
     for i in juego_nuevo.tabla:
         print(i)
+    
+    return juego_nuevo
  
