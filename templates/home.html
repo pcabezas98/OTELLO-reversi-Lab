@@ -107,14 +107,13 @@
   <br>
   <div class="mx-auto" style="width: 300px;">
     <h1>Othello reversi</h1>
+    <h3 id="turno_jugador"></h3>
   </div>
   <br>
   <br>
-  <input id="Q01" type="text" value="{{tabla}}" hidden></input>
-  
   <div id="main" class="container">
     <div id="game-board">
-      <table>
+      <table id="mytable">
         <thead>
           <tr>
             <th></th>
@@ -198,13 +197,13 @@
             <td class="cell empty" id="31">
               <span class="disc"></span>
             </td>
-            <td class="cell blackattackable" id="32" onclick="cambiar_ficha()">
+            <td class="cell black" id="32">
               <span class="disc"></span>
             </td>
             <td class="cell white" id="33">
               <span class="disc"></span>
             </td>
-            <td class="cell empty" id="34" onclick="cambiar_ficha('#34')">
+            <td class="cell empty" id="34">
               <span class="disc"></span>
             </td>
             <td class="cell empty" id="35">
@@ -255,6 +254,11 @@
           </tr>
         </tbody>
       </table>
+      <br>
+      <br>
+      <button type="button" class="btn btn-primary btn-sm" onclick="iniciar_juego('IA')">JUGAR IA</button>
+      <br>
+      <button type="button" class="btn btn-primary btn-sm" onclick="iniciar_juego('HUMAN')">JUGAR HUMANO</button>
     </div>
   </div>
   

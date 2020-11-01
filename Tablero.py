@@ -33,22 +33,40 @@ class Tablero:
         self.tabla[3][2] = self.f_negra
         self.tabla[2][3] = self.f_negra
 
+    #traduce el tablero que nos entrega el json y lo transforma al formato de 01-1-2 actualizando el tablero actual
+    def traducir_tablero(self,tabla_de_actualizacion):
+        for i in range(self.x):
+            for j in range(self.y):
+                if tabla_de_actualizacion['tablero'][i][j] == "cell empty":
+                    self.tabla[i][j] = 0
+                if tabla_de_actualizacion['tablero'][i][j] == "cell white":
+                    self.tabla[i][j] = 2
+                if tabla_de_actualizacion['tablero'][i][j] == "cell black":
+                    self.tabla[i][j] = 1
+                if tabla_de_actualizacion['tablero'][i][j] == "cell black attackable":
+                    self.tabla[i][j] = -1
+                if tabla_de_actualizacion['tablero'][i][j] == "cell white attackable":
+                    self.tabla[i][j] = -2
+                
 
 
-        
-       
-    def calculo_de_flips(self,x1,y1, x2, y2):
-        if(direccion == "arriba"):
-            aux = 1 
-            while (x1-aux != x2):
-                self.tabla[x1-aux][y1] = num_evaluar
-                aux = aux + 1 
 
+    def acutaliza_tablero(self, tabla_de_actualizacion):
+        for i in range(self.x):
+            for j in range(self.y):
+                if(self.tabla[i][j] == -1 or self.tabla[i][j] == -2):
+                    self.tabla[i][j] = 0 
+
+    #def calculo_de_flips(self,x1,y1, x2, y2):
+    #    if(direccion == "arriba"):
+    #        aux = 1 
+    #        while (x1-aux != x2):
+    #            self.tabla[x1-aux][y1] = num_evaluar
+    #            aux = aux + 1 
 
     def limpia_tablero(self):
         for i in range(self.x):
             for j in range(self.y):
-
                 if(self.tabla[i][j] == -1 or self.tabla[i][j] == -2):
                     self.tabla[i][j] = 0 
 
@@ -196,7 +214,6 @@ class Tablero:
                     aux = aux + 1
                 #print("abajo izq hay una ficha contraria")
 
-
     def flip(self, x1,y1, x2, y2, num_evaluar, direccion):         
         if(direccion == "arriba"):
             aux = 1
@@ -253,7 +270,6 @@ class Tablero:
             while (x1+aux != x2 and y1-aux != y2):
                 self.tabla[x1+aux][y1-aux] = num_evaluar
                 aux = aux + 1
-
 
     def aplica_jugada(self,cord_x, cord_y, num_evaluar):
         if(num_evaluar == 1):
