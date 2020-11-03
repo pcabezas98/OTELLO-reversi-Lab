@@ -79,6 +79,11 @@ function cambiar_ficha(concat){
             actualizar_tablero(json, 'tablero_espera')
             $("#turno_jugador").empty();
             $("#turno_jugador").append(json['turno']);
+            if(typeof json['mensaje'] != 'undefined'){
+                $('#mensajeSuccess').html(json['mensaje']);
+                $('#alertSuccess').show();
+                $('#alertSuccess').hide(6000);
+            }
             console.log(json['mensaje'])
 
         },

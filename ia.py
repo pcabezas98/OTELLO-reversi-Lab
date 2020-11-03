@@ -1,6 +1,16 @@
 from Tablero import Tablero
 #minimax apliaccion
-
+##class nodo:
+##    def __init__(self, profundidad, juegador, ramas_restantes, valor = 0):
+##        self.profundidad = profundidad
+##        self.juegador = juegador
+##        self.ramas_restantes = ramas_restantes
+##        self.valor = valor
+##        self.hijo = []
+##        self.creahijo()
+##
+##    def creahijo(self):
+        
 
 def minimax(juego ,quien_juega, profundidad):
     #si la profundidad es 0 se calcula su puntiacion

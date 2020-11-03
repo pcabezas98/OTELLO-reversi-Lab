@@ -60,7 +60,7 @@ def worker():
                     juego_nuevo.actualiza_movimientos(1)
                     return jsonify(tablero_espera=juego_nuevo.tabla,
                         turno="Jugador 1", mensaje="El jugador 2 se quedo sin movimientos")
-                
+###########################agregar que jugador gano
                 return jsonify(tablero_espera=juego_nuevo.tabla,
                         turno="El juego ha terminado")
             
