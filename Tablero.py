@@ -9,6 +9,7 @@ class Tablero:
     x = 0
     y = 0
     tabla = [[]]
+    tabla_simulada = [[]]
     tabla_valorada = [
         [100,  -10,  3,  3, -10, 100],
         [-10,  -20, -3, -3, -20, -10],
@@ -17,6 +18,7 @@ class Tablero:
         [-10,  -20, -3, -3, -20, -10],
         [100,  -10,  3,  3, -10, 100]
         ]
+
 
     def __init__(self):
         self.x = 6
@@ -63,6 +65,12 @@ class Tablero:
     #        while (x1-aux != x2):
     #            self.tabla[x1-aux][y1] = num_evaluar
     #            aux = aux + 1 
+
+    def revisa_si_existe_fichas_para_elegir(self, quien_juega):
+        for i in range(self.x):
+            for j in range(self.y):
+                if(self.tabla[i][j] == -(quien_juega)):
+                    return True
 
     def limpia_tablero(self):
         for i in range(self.x):

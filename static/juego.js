@@ -17,15 +17,15 @@ function actualizar_tablero(tabla_de_actualizacion, tipo_tablero){
         for(var j = 0; j< 6; j++){
             if (parseInt(tabla_de_actualizacion[tipo_tablero][i][j]) == 0){
                 $('#'+i +''+j).removeClass().addClass('cell empty');
-                $('#'+i +''+j).removeAttr("oneclick");
+                $('#'+i +''+j).removeAttr("onclick");
             }
             if (parseInt(tabla_de_actualizacion[tipo_tablero][i][j]) == 2){
                 $('#'+i +''+j).removeClass().addClass('cell white');
-                $('#'+i +''+j).removeAttr("oneclick");
+                $('#'+i +''+j).removeAttr("onclick");
             }
             if (parseInt(tabla_de_actualizacion[tipo_tablero][i][j]) == 1){
                 $('#'+i +''+j).removeClass().addClass('cell black');
-                $('#'+i +''+j).removeAttr("oneclick");
+                $('#'+i +''+j).removeAttr("onclick");
             }
             if (parseInt(tabla_de_actualizacion[tipo_tablero][i][j]) == -1){
                 $('#'+i +''+j).removeClass().addClass('cell black attackable');
@@ -79,6 +79,7 @@ function cambiar_ficha(concat){
             actualizar_tablero(json, 'tablero_espera')
             $("#turno_jugador").empty();
             $("#turno_jugador").append(json['turno']);
+            console.log(json['mensaje'])
 
         },
         error: function(e) {

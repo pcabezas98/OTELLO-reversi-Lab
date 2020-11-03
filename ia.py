@@ -1,51 +1,77 @@
+from Tablero import Tablero
 #minimax apliaccion
-print("global")
+
 
 def minimax(juego ,quien_juega, profundidad):
     #si la profundidad es 0 se calcula su puntiacion
+    #debe retornar una tupla que tiene la tabla y el Valor
     pass
 
-def funcion_utilidad(juego):
-    negro = 0
-    blanco = 0
-    for i in juego:
-        for j in i:
-            if(j == 1):
-                negro = negro + 1
-            elif (j == 2):
-                blanco = blanco + 1
-    res = negro - blanco
-    return res
+def funcion_utilidad(juego, quien_juega):
+    jugador = 0
+    oponente = 0
+    for i in range(6):
+        for j in range(6):
+            if(juego.tabla[i][j] == quien_juega):
+                jugador = jugador + 1
+            else:
+                oponente = oponente + 1
+    resultado = jugador - oponente
+    return resultado
 
 
-def funcion_evaluacion(juego, jugadas_posibles, quien_juega, profundidad):
-    if(profundidad == 0):
-        valor = funcion_utilidad(juego)
-        if valor < 0:
-            return 100
-        elif valor > 0:
-            return -100
+def funcion_evaluacion(juego, quien_juega):
+    #si el tablero esta en un nodo final me retorna quien gano
+    lleno = True
+    for i in range(6):
+        for j in range(6):
+            if(juego.tabla[i][j] == 0):
+                lleno = False
+
+    if(lleno == True):
+        valor = funcion_utilidad(juego, quien_juega)
+        #si gana max
+        if valor > 0:
+            return 1000
+        #si gana min
+        elif valor < 0:
+            return -1000
+        #si empatan
         else:
             return 0    
     #recorrer tabla con posibles jugadas
-    if(quien_juega == 1):
-        valor = 100
-    else:
-        valor = -100
-    aux = 0
-    for i in juego:
-        for j in i:
-            #entrega min (negro)
-            if(quien_juega == 1):
-                if(jugadas_posibles[i][j] == -(quien_juega)):
-                    aux = Tablero.tabla_valorada[i][j]
-                    if(aux < valor):
-                        valor = aux
-            #entrega max (blanco)
-            elif(quien_juega == 2):
-                if(jugadas_posibles[i][j] == -(quien_juega)):
-                    aux = Tablero.tabla_valorada[i][j]
-                    if(aux > valor):
-                        valor = aux
+    juego.limpia_tablero()
+    jugador = 0
+    oponente = 0
+    for i in range(6):
+        for j in range(6):
+            if(juego.tabla[i][j] == quien_juega):
+                jugador = jugador + juego.tabla_valorada[i][j]
+            elif(juego.tabla[i][j] != quien_juega and juego.tabla[i][j] != 0):
+                oponente = oponente + juego.tabla_valorada[i][j]
+
+        
+    salida = jugador - oponente
+
     
-    return valor
+    #pos = {'max' : 0, "x" : 0, "y": 0}
+    #max = -100
+    #aux = 0
+    #for i in range(6):
+    #    for j in range(6):
+    #        #entrega min (negro)
+    #        if(juego.tabla[i][j] == -(quien_juega)):
+    #            aux = juego.tabla_valorada[i][j]
+    #            if(aux > max): 
+    #                max = aux
+    #                pos.update({'max' : max, "x" : i, "y": j})
+
+            #entrega max (blanco)
+            #if(juego.movimiento_posible[i][j] == -(quien_juega)):
+            #    aux = Tablero.tabla_valorada[i][j]
+            #    if(aux > valor):
+            #        pos.append(valor)
+            #        pos.append(i)
+            #        pos.append(j)
+    #
+    return salida

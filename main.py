@@ -51,15 +51,37 @@ def worker():
             juego_nuevo.limpia_tablero()
             juego_nuevo.aplica_jugada(int(ficha_jugada[1]),int(ficha_jugada[2]),1)
             juego_nuevo.actualiza_movimientos(2)
-            return jsonify(tablero_espera=juego_nuevo.tabla,
+            if juego_nuevo.revisa_si_existe_fichas_para_elegir(2):
+                return jsonify(tablero_espera=juego_nuevo.tabla,
                     turno="Jugador 2")
+            else:
+                juego_nuevo.actualiza_movimientos(1)
+                if juego_nuevo.revisa_si_existe_fichas_para_elegir(1):
+                    juego_nuevo.actualiza_movimientos(1)
+                    return jsonify(tablero_espera=juego_nuevo.tabla,
+                        turno="Jugador 1", mensaje="El jugador 2 se quedo sin movimientos")
+                
+                return jsonify(tablero_espera=juego_nuevo.tabla,
+                        turno="El juego ha terminado")
+            
         
         if data["turno jugador"] == "Jugador 2":
             juego_nuevo.limpia_tablero()
             juego_nuevo.aplica_jugada(int(ficha_jugada[1]),int(ficha_jugada[2]),2)
             juego_nuevo.actualiza_movimientos(1)
-            return jsonify(tablero_espera=juego_nuevo.tabla,
+            if juego_nuevo.revisa_si_existe_fichas_para_elegir(1):
+                return jsonify(tablero_espera=juego_nuevo.tabla,
                     turno="Jugador 1")
+            
+            else:
+                juego_nuevo.actualiza_movimientos(2) 
+                if juego_nuevo.revisa_si_existe_fichas_para_elegir(2):
+                    juego_nuevo.actualiza_movimientos(2)
+                    return jsonify(tablero_espera=juego_nuevo.tabla,
+                        turno="Jugador 2", mensaje="El jugador 1 se quedo sin movimientos")
+                
+                return jsonify(tablero_espera=juego_nuevo.tabla,
+                        turno="El juego ha terminado")
 
         pass
     
