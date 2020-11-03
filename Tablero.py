@@ -53,11 +53,41 @@ class Tablero:
 
 
 
-    def acutaliza_tablero(self, tabla_de_actualizacion):
+    def cordenadas_posibles_jugadas(self, quien_juega):
+        path = []
+        for i in range(6):
+            for j in range(6):
+                self.actualiza_movimientos(quien_juega)
+                if(self.tabla[i][j] == -(quien_juega)):
+                    path.append([i,j])
+        self.limpia_tablero()
+        return path
+
+
+    def cantidad_de_caminos(self, quien_juega):
+        cantidad_de_movimientos = 0
+        self.actualiza_movimientos(quien_juega)
         for i in range(self.x):
             for j in range(self.y):
-                if(self.tabla[i][j] == -1 or self.tabla[i][j] == -2):
-                    self.tabla[i][j] = 0 
+                if(self.tabla[i][j] == -(quien_juega)):
+                    cantidad_de_movimientos = cantidad_de_movimientos + 1
+        return cantidad_de_movimientos
+        
+    
+    #revisa si el juego a terminado
+    def juego_terminado(self):
+        for i in range(6):
+            for j in range(6):
+                self.actualiza_movimientos(1)
+                if(self.tabla[i][j] == -1):
+                    self.limpia_tablero()
+                    return False
+                self.limpia_tablero()
+                self.actualiza_movimientos(2)
+                if(self.tabla[i][j] == -2):
+                    self.limpia_tablero()
+                    return False
+        return True
 
     #def calculo_de_flips(self,x1,y1, x2, y2):
     #    if(direccion == "arriba"):
@@ -284,7 +314,6 @@ class Tablero:
             num_adversario = 2
         else:
             num_adversario = 1
-        
         #preguntamos si existe un espacio a la arriba
         if(cord_x-1 >= 0):
             #preguntamos si el valor de arriba es una ficha adversaria
