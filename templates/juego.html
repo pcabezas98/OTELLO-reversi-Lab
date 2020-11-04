@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block  title %}
+    otello
+{% endblock  %}
+
+
+{% block content %}
+  
+<body>
+  <style>
+    #main.container
+    {
+      text-align: center;
+    }
+
+    .disabled
+    {
+      opacity: 0.5;
+    }
+
+    #message
+    {
+      margin-top: 1em;
+    }
+
+    #preference-pane
+    {
+      margin-top: 2em;
+    }
+
+    #player-type-forms
+    {
+      display: inline-block;
+    }
+    #black-player-level,
+    #white-player-level
+    {
+      width: auto;
+    }
+    #swap-player-types-button
+    {
+      position: relative;
+      top: -2em;
+    }
+
+    #add-new-ai-button
+    {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    #game-board > table
+    {
+      margin: 0 auto;
+    }
+
+    #game-board > table th
+    {
+      margin: 0;
+      padding: 0.125em 0.25em;
+      line-height: 100%;
+    }
+
+    #game-board > table .cell
+    {
+      background: rgb(192, 178, 133);
+      border: 1px solid #ccc;
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+    }
+    #game-board > table .cell.attackable
+    {
+      cursor: pointer;
+    }
+    #game-board > table .cell.attackable:hover
+    {
+      background: #cc0;
+    }
+
+    #game-board > table .cell > .disc
+    {
+      display: inline-block;
+      width: 2em;
+      height: 2em;
+      border-radius: 1em;
+      margin: 0.25em;
+    }
+    #game-board > table .cell.white > .disc
+    {
+      background: #fff;
+    }
+    #game-board > table .cell.black > .disc
+    {
+      background: #000;
+    }
+    #game-board > table .cell.attackable > .disc
+    {
+      opacity: 0.2;
+    }
+    #game-board > table .cell.attackable:hover > .disc
+    {
+      opacity: 1.0;
+    }
+  </style>
+  <br>
+  <div class="mx-auto" style="width: 300px;">
+    <h1>Othello reversi</h1>
+    <h3 id="turno_jugador"></h3>
+  </div>
+  <div class="mx-auto" style="width: 500px;">
+    <div class="alert alert-success collapse" role="alert" id="alertSuccess">
+      <p id="mensajeSuccess"></p>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div id="main" class="container">
+    <div id="game-board">
+      <table id="mytable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>a</th>
+            <th>b</th>
+            <th>c</th>
+            <th>d</th>
+            <th>e</th>
+            <th>f</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>1</th>
+            <td class="cell empty" id="00">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="01">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="02">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="03">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="04">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="05">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>2</th>
+            <td class="cell empty" id="10">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="11">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="12">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="13">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="14">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="15">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>3</th>
+            <td class="cell empty" id="20">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="21">
+              <span class="disc"></span>
+            </td>
+            <td class="cell white" id="22">
+              <span class="disc"></span>
+            </td>
+            <td class="cell black" id="23">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="24">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="25">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>4</th>
+            <td class="cell empty" id="30">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="31">
+              <span class="disc"></span>
+            </td>
+            <td class="cell black" id="32">
+              <span class="disc"></span>
+            </td>
+            <td class="cell white" id="33">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="34">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="35">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>5</th>
+            <td class="cell empty" id="40">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="41">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="42">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="43">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="44">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="45">
+              <span class="disc"></span>
+            </td>
+          </tr>
+          <tr>
+            <th>6</th>
+            <td class="cell empty" id="50">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="51">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="52">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="53">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="54">
+              <span class="disc"></span>
+            </td>
+            <td class="cell empty" id="55">
+              <span class="disc"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <button type="button" class="btn btn-primary btn-sm" onclick="iniciar_juego('IA')">JUGAR IA</button>
+      <br>
+      <button type="button" class="btn btn-primary btn-sm" onclick="iniciar_juego('HUMAN')">JUGAR HUMANO</button>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+
+    <script src="juego.js"></script>
+  </body>
+  
+{% endblock  %}

@@ -8,11 +8,17 @@ app = Flask(__name__,static_url_path='',
             static_folder='static',
             template_folder='templates')
 
-
 @app.route('/')
-def home():
+def inicio():
      
     return render_template('home.html')
+
+
+
+@app.route('/game')
+def home():
+     
+    return render_template('juego.html')
 
 
 @app.route('/receiver', methods = ['POST'])
@@ -32,14 +38,39 @@ def worker():
         if data['ficha jugada'] == 'IA':
             return jsonify(tablero_espera=juego_nuevo.tabla,
                     turno="Te toca")
-            
-    #mandar 3 tableros, posible jugada ia (time 2sec.), jugada ia, posible jugada humao
+
+
     if data['espero'] == 'jugada ia':
         ficha_jugada = data['ficha jugada']
         #ACTUALIZAMOS EL TABLERO PERO ANTES LIMPIAMOS LOS -1 O -2
-        juego_nuevo.limpia_tablero()
-        juego_nuevo.aplica_jugada(int(ficha_jugada[1]),int(ficha_jugada[2]),1)
+        if data["turno jugador"] == "Te toca":
+            juego_nuevo.limpia_tablero()
+            juego_nuevo.aplica_jugada(int(ficha_jugada[1]),int(ficha_jugada[2]),1)
+            juego_nuevo.actualiza_movimientos(2)
+            resultado = minimax(juego_nuevo, 2,2,1,dificultad)
+            juego_nuevo.aplica_jugada(resultado[1][0],resultado[1][1],2)
+            return jsonify(tablero_espera=juego_nuevo.tabla,
+                    turno="Jugador 2")
         pass
+
+            
+    #mandar 3 tableros, posible jugada ia (time 2sec.), jugada ia, posible jugada humao
+    if  data['espero'] == 'Te toca':
+        ficha_jugada = data['ficha jugada']
+        #ACTUALIZAMOS EL TABLERO PERO ANTES LIMPIAMOS LOS -1 O -2
+        if data["turno jugador"] == "Te toca":
+            juego_nuevo.limpia_tablero()
+            juego_nuevo.aplica_jugada(int(ficha_jugada[1]),int(ficha_jugada[2]),1)
+            juego_nuevo.actualiza_movimientos(2)
+            resultado = minimax(juego_nuevo, 2,2,1,dificultad)
+            juego_nuevo.aplica_jugada(resultado[1][0],resultado[1][1],2)
+            return jsonify(tablero_espera=juego_nuevo.tabla,
+                    turno="Jugador 2")
+        pass
+
+
+
+
     #print(data['ficha jugada'])
 
     if data['espero'] == 'jugada humano' or data["turno jugador"] == "Jugador 1" or data["turno jugador"] == "Jugador 2":

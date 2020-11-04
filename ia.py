@@ -1,16 +1,6 @@
 from Tablero import Tablero
 import copy
 #minimax apliaccion
-##class nodo:
-##    def __init__(self, profundidad, juegador, ramas_restantes, valor = 0):
-##        self.profundidad = profundidad
-##        self.juegador = juegador
-##        self.ramas_restantes = ramas_restantes
-##        self.valor = valor
-##        self.hijo = []
-##        self.creahijo()
-##
-##    def creahijo(self):
 cantidad_de_repeticiones = 0
 
 #funcion que muestra la cantidad de nodos que recorre
