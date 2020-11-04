@@ -41,8 +41,18 @@ function actualizar_tablero(tabla_de_actualizacion, tipo_tablero){
     
 
 function iniciar_juego(jugador){
+    var dificultad = $( "#dificultad").val();
     var tablero = matriz_completa()
-    var envio = {"espero": "inicio_juego","ficha jugada" : jugador,"tablero" : tablero};
+    if(dificultad != 'vacio'){
+        var envio = {"espero": "inicio_juego","ficha jugada" : jugador,"tablero" : tablero, "dificultad" : dificultad };
+        console.log(dificultad)
+        $( "#titulo" ).empty();
+        $( "#titulo" ).append( "Nivel: "+dificultad+"");
+
+    }
+    else{
+        var envio = {"espero": "inicio_juego","ficha jugada" : jugador,"tablero" : tablero};
+    }
     $.ajax({
         type: 'POST',
         url: "/receiver",
@@ -64,34 +74,96 @@ function iniciar_juego(jugador){
 //RECIBIR VARIOS tableros
 function cambiar_ficha(concat){
     var turno = $("#turno_jugador").text();
+    var dificultad = $("#titulo").text();
+    console.log(dificultad)
     var tablero = matriz_completa();
-    var envio = {"espero": "jugada humano","ficha jugada" : concat,"tablero" : tablero, "turno jugador" : turno};
-    $.ajax({
-        type: 'POST',
-        url: "/receiver",
-        data: JSON.stringify(envio),
-        method: 'POST',
-        contentType: "application/json;charset=utf-8",
-        success: function(json) {
-            console.log("success");
-            console.log(json['turno'])
-            console.log(json['tablero_espera'])
-            actualizar_tablero(json, 'tablero_espera')
-            $("#turno_jugador").empty();
-            $("#turno_jugador").append(json['turno']);
-            if(typeof json['mensaje'] != 'undefined'){
-                $('#mensajeSuccess').html(json['mensaje']);
-                $('#alertSuccess').show();
-                $('#alertSuccess').hide(6000);
-            }
-            console.log(json['mensaje'])
+    var envio = {"espero": "jugada humano","ficha jugada" : concat,"tablero" : tablero, "turno jugador" : turno, "dificultad" : dificultad };
+   
+    if(turno == "Te toca" || turno == "Turno Maquina"){
 
-        },
-        error: function(e) {
-            console.log(e.message);
-        }
-    });
+
+        $.ajax({
+            type: 'POST',
+            url: "/receiver",
+            data: JSON.stringify(envio),
+            method: 'POST',
+            contentType: "application/json;charset=utf-8",
+            success: function(json) {
+                actualizar_tablero(json, 'tablero_espera')
+                $("#turno_jugador").empty();
+                $("#turno_jugador").append(json['turno']);    
+                console.log("primero")
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
+        
+        var turno2 ="Turno Maquina"
+        var dificultad = $("#titulo").text();
+        setTimeout(function(){
+            var tablero = matriz_completa();
+    
+        
+            console.log(tablero)
+            var mini = {"espero": "jugada humano","tablero" : tablero, "turno jugador" : turno2, "dificultad" : dificultad  };
+            console.log("llegamos")
+            $.ajax({
+                type: 'POST',
+                url: "/receiver",
+                data: JSON.stringify(mini),
+                method: 'POST',
+                contentType: "application/json;charset=utf-8",
+                success: function(json) {
+                    actualizar_tablero(json, 'tablero_espera')
+                    $("#turno_jugador").empty();
+                    $("#turno_jugador").append(json['turno']);
+                    console.log("segundo")
+                },
+                error: function(e) {
+                    console.log(e.message);
+                }
+            });
+
+        }, 1000);
+    
+    }else{
+        $.ajax({
+            type: 'POST',
+            url: "/receiver",
+            data: JSON.stringify(envio),
+            method: 'POST',
+            contentType: "application/json;charset=utf-8",
+            success: function(json) {
+                console.log("success");
+                console.log(json['turno'])
+                console.log(json['tablero_espera'])
+                actualizar_tablero(json, 'tablero_espera')
+                $("#turno_jugador").empty();
+                $("#turno_jugador").append(json['turno']);
+                if(typeof json['mensaje'] != 'undefined'){
+                    $('#mensajeSuccess').html(json['mensaje']);
+                    $('#alertSuccess').show();
+                    $('#alertSuccess').hide(6000);
+                }
+                console.log(json['mensaje'])
+    
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
+
+    }
+   
+    
 }
+
+
+
+
+
+
 function getBoard() {
     var board = [];
     var tds = document.getElementsByTagName('td');
@@ -100,7 +172,7 @@ function getBoard() {
     }
     return board;
 }
-
+//trae matriz para enviar
 function matriz_completa(){
     var tablero = getBoard();
     var tds = document.getElementsByTagName('td');
