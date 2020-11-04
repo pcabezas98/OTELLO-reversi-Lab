@@ -13,7 +13,22 @@ if __name__ == "__main__":
 
     juego_nuevo.tabla = tabla
     #juego, quien juega, 1,2, profundidad
-    resultado = minimax(juego_nuevo, 1,1,2,7)
-    cantidad = mostrar()
-    print(f"cantidad de nodos recorridos: {cantidad}, \nmejor valor: {resultado[0]}, con cordenada {resultado[1]}")
-    
+    cantidad_antes = mostrar()
+    resultado = minimax(juego_nuevo, 1,1,2,5)
+    cantidad_despues = mostrar()
+    print(f"cantidad total : {cantidad_despues-cantidad_antes}")
+    print(f"cantidad de nodos recorridos: {cantidad_despues}, \nmejor valor: {resultado[0]}, con cordenada {resultado[1]}")
+
+    juego_nuevo.aplica_jugada(resultado[1][0],resultado[1][1],1)
+    cantidad_antes = mostrar()
+    resultado = minimax(juego_nuevo, 2,2,1,2)
+    cantidad_despues = mostrar()
+    print(f"\ncantidad total : {cantidad_despues-cantidad_antes}")
+    print(f"cantidad de nodos recorridos: {cantidad_despues}, \nmejor valor: {resultado[0]}, con cordenada {resultado[1]}")
+
+    juego_nuevo.aplica_jugada(resultado[1][0],resultado[1][1],2)
+    cantidad_antes = mostrar()
+    resultado = minimax(juego_nuevo, 1,1,2,1)
+    cantidad_despues = mostrar()
+    print(f"\ncantidad total : {cantidad_despues-cantidad_antes}")
+    print(f"cantidad de nodos recorridos: {cantidad_despues}, \nmejor valor: {resultado[0]}, con cordenada {resultado[1]}")

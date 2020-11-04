@@ -39,13 +39,14 @@ def minimax(juego ,quien_juega, ganador, oponente , profundidad):
 
     cantidad_de_caminos =  juego.cantidad_de_caminos(quien_juega)
     #print(f"cantidad_de_caminos: {cantidad_de_caminos}")
+    #pass
     if cantidad_de_caminos == 0:
-        return minimax(juego, ficha_contraria,ganador ,oponente,profundidad-1)
+        return minimax(juego, ficha_contraria,ganador ,oponente,profundidad)
     
     valor = []
     mejor_val = None
     mejor_movimiento = []
-    juego_nuevito = Tablero()
+    #juego_nuevito = Tablero()
     #max
     if ganador == quien_juega:
         mov_posibles = juego.cordenadas_posibles_jugadas(quien_juega)
@@ -72,7 +73,7 @@ def minimax(juego ,quien_juega, ganador, oponente , profundidad):
             if mejor_val == None or valor[0] > mejor_val:
                 mejor_val = valor[0]
                 mejor_movimiento = [cord_x,cord_y]
-
+    #min
     if oponente == quien_juega:
         mov_posibles = juego.cordenadas_posibles_jugadas(quien_juega)
         for i in range(cantidad_de_caminos):

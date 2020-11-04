@@ -33,7 +33,6 @@ def worker():
             return jsonify(tablero_espera=juego_nuevo.tabla,
                     turno="Te toca")
             
-
     #mandar 3 tableros, posible jugada ia (time 2sec.), jugada ia, posible jugada humao
     if data['espero'] == 'jugada ia':
         ficha_jugada = data['ficha jugada']
@@ -59,6 +58,7 @@ def worker():
                 if juego_nuevo.revisa_si_existe_fichas_para_elegir(1):
                     return jsonify(tablero_espera=juego_nuevo.tabla,
                         turno="Jugador 1", mensaje="El jugador 2 se quedo sin movimientos")
+
 ###########################agregar que jugador gano
                 return jsonify(tablero_espera=juego_nuevo.tabla,
                         turno="El juego ha terminado")

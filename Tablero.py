@@ -17,7 +17,7 @@ class Tablero:
           [3,   -3,  1,  1, -3,   3],
         [-10,  -20, -3, -3, -20, -10],
         [100,  -10,  3,  3, -10, 100]
-        ]
+    ]
 
 
     def __init__(self):
@@ -50,9 +50,6 @@ class Tablero:
                 if tabla_de_actualizacion['tablero'][i][j] == "cell white attackable":
                     self.tabla[i][j] = -2
                 
-
-
-
     def cordenadas_posibles_jugadas(self, quien_juega):
         path = []
         for i in range(6):
@@ -63,7 +60,6 @@ class Tablero:
         self.limpia_tablero()
         return path
 
-
     def cantidad_de_caminos(self, quien_juega):
         cantidad_de_movimientos = 0
         self.actualiza_movimientos(quien_juega)
@@ -72,8 +68,6 @@ class Tablero:
                 if(self.tabla[i][j] == -(quien_juega)):
                     cantidad_de_movimientos = cantidad_de_movimientos + 1
         return cantidad_de_movimientos
-        
-    
     #revisa si el juego a terminado
     def juego_terminado(self):
         for i in range(6):
