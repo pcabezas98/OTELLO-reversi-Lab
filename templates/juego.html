@@ -103,6 +103,7 @@
     {
       opacity: 1.0;
     }
+  
   </style>
   <br>
   <br>
@@ -265,7 +266,7 @@
       </table>
       <br>
       <br>
-    <div >
+    <div id="botones" >
       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">JUGAR IA</button>
       <!--<button type="button" class="btn btn-primary btn-sm" onclick="iniciar_juego('IA')">JUGAR IA</button>
       --->
@@ -279,7 +280,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Dificultad</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -300,7 +301,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary"  onclick="iniciar_juego('IA')">Confirmar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="iniciar_juego('IA')">Confirmar</button>
       </div>
     </div>
   </div>
@@ -309,12 +310,9 @@
 
 
 
-
-
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
-
+    <script src='js/bootstrap.min.js'></script>
     <script src="juego.js"></script>
   </body>
   

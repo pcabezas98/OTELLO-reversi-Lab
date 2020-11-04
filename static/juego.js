@@ -61,6 +61,8 @@ function iniciar_juego(jugador){
         contentType: "application/json;charset=utf-8",
         success: function(json) {
             console.log("success");
+            $('#exampleModal').modal('hide')
+            $("#botones").fadeOut( "slow" );
             $("#turno_jugador").append(json['turno']);
             console.log(json['turno'])
             console.log(json['tablero_espera'])
