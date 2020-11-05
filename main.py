@@ -161,10 +161,10 @@ def definir_nivel(data):
         dificultad = 1
         return dificultad
     elif (data['dificultad'] == 'Medio' or data['dificultad'] == 'Nivel: Medio'):
-        dificultad = 2
+        dificultad = 3
         return dificultad
     elif (data['dificultad'] == 'Dificil' or data['dificultad'] == 'Nivel: Dificil'):
-        dificultad = 3
+        dificultad = 5
         return dificultad
     else:
         return "Error"
