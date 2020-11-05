@@ -82,7 +82,8 @@ function cambiar_ficha(concat){
     var envio = {"espero": "jugada humano","ficha jugada" : concat,"tablero" : tablero, "turno jugador" : turno, "dificultad" : dificultad };
    
     if(turno == "Te toca" || turno == "Turno Maquina"){
-
+        $('#spin').removeAttr('hidden');
+        $('#spin').show();
 
         $.ajax({
             type: 'POST',
@@ -117,6 +118,7 @@ function cambiar_ficha(concat){
                 method: 'POST',
                 contentType: "application/json;charset=utf-8",
                 success: function(json) {
+                    $('#spin').hide();
                     actualizar_tablero(json, 'tablero_espera')
                     $("#turno_jugador").empty();
                     $("#turno_jugador").append(json['turno']);
@@ -145,8 +147,11 @@ function cambiar_ficha(concat){
                 $("#turno_jugador").append(json['turno']);
                 if(typeof json['mensaje'] != 'undefined'){
                     $('#mensajeSuccess').html(json['mensaje']);
-                    $('#alertSuccess').show();
-                    $('#alertSuccess').hide(6000);
+                    $('#alertSuccess').fadeIn( "slow" )
+                    setTimeout(function(){
+                        $('#alertSuccess').fadeOut( "slow" );
+                    }, 1500);
+                    
                 }
                 console.log(json['mensaje'])
     
