@@ -6,6 +6,8 @@ var concat = posx + posy;
 
 console.log(concat);
 
+
+
 $(document).ready(function(){
     $("#Q01").val();
     console.log("cambio en valor tabla");
@@ -63,6 +65,11 @@ function iniciar_juego(jugador){
             console.log("success");
             $('#exampleModal').modal('hide')
             $("#botones").fadeOut( "slow" );
+            if(json['turno'] == "Te toca"){
+                setTimeout(function(){
+                    $("#ayuda").fadeIn("slow");
+                }, 500);
+            }
             $("#turno_jugador").append(json['turno']);
             console.log(json['turno'])
             console.log(json['tablero_espera'])
@@ -73,6 +80,50 @@ function iniciar_juego(jugador){
         }
     });
 }
+
+//envia ayuda
+function movimiento_ayuda(){
+    var turno = $("#turno_jugador").text();
+    var dificultad = $("#titulo").text();
+    var tablero = matriz_completa();
+    var envio = {"espero": "ayuda","ficha jugada" : concat,"tablero" : tablero, "turno jugador" : "", "dificultad" : dificultad };
+
+        $.ajax({
+            type: 'POST',
+            url: "/receiver",
+            data: JSON.stringify(envio),
+            method: 'POST',
+            contentType: "application/json;charset=utf-8",
+            success: function(json) {
+                console.log(json['mov_ayuda'][0])
+                cord_x= json['mov_ayuda'][0]+1
+                cord_y= transforma_num_a_letra(json['mov_ayuda'][1]+1)
+                createToast('Movimiento recomendado', cord_x+" "+cord_y);
+            
+            
+
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
+}
+
+function transforma_num_a_letra(num){
+
+    switch(num)
+    {
+        case 1: return 'a';
+        case 2: return 'b';
+        case 3: return 'c';
+        case 4: return 'd';
+        case 5: return 'e';
+        case 6: return 'f';
+    }
+
+    return '';
+}//Unidades()
+
 //RECIBIR VARIOS tableros
 function cambiar_ficha(concat){
     var turno = $("#turno_jugador").text();
@@ -84,6 +135,9 @@ function cambiar_ficha(concat){
     if(turno == "Te toca" || turno == "Turno Maquina"){
         $('#spin').removeAttr('hidden');
         $('#spin').show();
+        $('#ayuda').attr('disabled', true);
+
+
 
         $.ajax({
             type: 'POST',
@@ -119,6 +173,7 @@ function cambiar_ficha(concat){
                 contentType: "application/json;charset=utf-8",
                 success: function(json) {
                     $('#spin').hide();
+                    $('#ayuda').prop("disabled", false); 
                     actualizar_tablero(json, 'tablero_espera')
                     $("#turno_jugador").empty();
                     $("#turno_jugador").append(json['turno']);
@@ -130,6 +185,7 @@ function cambiar_ficha(concat){
             });
 
         }, 1000);
+    
     
     }else{
         $.ajax({
@@ -196,6 +252,39 @@ function matriz_completa(){
     return salida;
      
 }
+
+
+
+
+  
+  function createToast(title, text) {
+    let id = new Date().getTime();
+    let html = `<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false" id=${id} >
+                  <div class="toast-header">
+                      <svg class="ounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                      <rect fill="#007aff" width="100%" height="100%" /></svg>
+                      <strong class="mr-auto">${title}  </strong>
+                      <small> *Consejos</small>
+                      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="toast-body">
+                      ${text}
+                  </div>
+              </div>`;
+  
+    document.getElementById('toast-container').innerHTML += html;
+            $(`#${id}`).toast('show');
+
+  }
+
+  $('body').on('click','.close',function(){
+    $(this).closest('.toast').toast('hide')
+  })
+
+
 
 //$('#00').removeClass('cell empty').addClass('cell black');
 

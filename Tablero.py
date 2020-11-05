@@ -35,6 +35,11 @@ class Tablero:
         self.tabla[3][2] = self.f_negra
         self.tabla[2][3] = self.f_negra
 
+    #aplica la jugada ayuda al tablero
+    def jugada_ayuda(self, cord_x, cord_y,quien_juega):
+        self.tabla[cord_x][cord_y] == -(quien_juega)
+
+
     #traduce el tablero que nos entrega el json y lo transforma al formato de 01-1-2 actualizando el tablero actual
     def traducir_tablero(self,tabla_de_actualizacion):
         for i in range(self.x):

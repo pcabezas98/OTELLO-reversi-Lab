@@ -29,6 +29,17 @@ def worker():
     juego_nuevo = Tablero()
     juego_nuevo.traducir_tablero(data)
 
+    if data['espero'] == 'ayuda':
+        nivel = definir_nivel(data)
+        if(nivel == 'Error'):
+            return jsonify(tablero_espera=juego_nuevo.tabla,
+                                turno="ERROR EN LA ENTRADA")
+
+        pos = minimax(juego_nuevo, 1 ,1, 2, nivel)
+        print(f"\nmejor valor: {pos[0]}, con cordenada {pos[1]}")
+  
+
+        return jsonify(mov_ayuda=pos[1])
 
 
     #mandar tablero posible jugada humano
