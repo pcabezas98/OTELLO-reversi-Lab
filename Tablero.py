@@ -166,7 +166,6 @@ class Tablero:
                     if(self.tabla[cord_x+aux][cord_y] == num_evaluar or self.tabla[cord_x+aux][cord_y] == -(num_evaluar)):
                         break
                     aux = aux + 1 
-                #print("abajo hay una ficha contraria")
 
 
         
@@ -182,7 +181,6 @@ class Tablero:
                     if(self.tabla[cord_x][cord_y-aux] == num_evaluar or self.tabla[cord_x][cord_y-aux] == -(num_evaluar)):
                         break
                     aux = aux + 1 
-                #print("izquierda hay una ficha contraria")
 
 
 
@@ -198,7 +196,6 @@ class Tablero:
                     if(self.tabla[cord_x][cord_y+aux] == num_evaluar or self.tabla[cord_x][cord_y+aux] == -(num_evaluar)):
                         break
                     aux = aux + 1
-                #print("derecha hay una ficha contraria")
 
 
         
@@ -214,7 +211,6 @@ class Tablero:
                     if(self.tabla[cord_x-aux][cord_y-aux] == num_evaluar or self.tabla[cord_x-aux][cord_y-aux] == -(num_evaluar)):
                         break
                     aux = aux + 1
-                #print("arriba izq hay una ficha contraria")
 
 
         
@@ -230,7 +226,6 @@ class Tablero:
                     if(self.tabla[cord_x-aux][cord_y+aux] == num_evaluar or self.tabla[cord_x-aux][cord_y+aux] == -(num_evaluar)):
                         break
                     aux = aux + 1
-                #print("arriba derecha hay una ficha contraria")
 
 
         
@@ -246,7 +241,6 @@ class Tablero:
                     if(self.tabla[cord_x+aux][cord_y+aux] == num_evaluar or self.tabla[cord_x+aux][cord_y+aux] == -(num_evaluar)):
                         break
                     aux = aux + 1
-                #print("abajo derecha hay una ficha contraria")
 
                 
         
@@ -262,7 +256,6 @@ class Tablero:
                     if(self.tabla[cord_x+aux][cord_y-aux] == num_evaluar or self.tabla[cord_x+aux][cord_y-aux] == -(num_evaluar)):
                         break
                     aux = aux + 1
-                #print("abajo izq hay una ficha contraria")
 
     def flip(self, x1,y1, x2, y2, num_evaluar, direccion):         
         if(direccion == "arriba"):
@@ -362,7 +355,6 @@ class Tablero:
                         self.flip(cord_x,cord_y, cord_x, cord_y-aux, num_evaluar, "izquierda")    
                         break
                     aux = aux + 1 
-                #print("izquierda hay una ficha contraria")
 
 
 
@@ -376,7 +368,6 @@ class Tablero:
                         self.flip(cord_x,cord_y, cord_x, cord_y+aux, num_evaluar, "derecha")
                         break
                     aux = aux + 1
-                #print("derecha hay una ficha contraria")
 
 
         
@@ -390,7 +381,6 @@ class Tablero:
                         self.flip(cord_x,cord_y, cord_x-aux, cord_y, num_evaluar, "arriba izquierda")
                         break
                     aux = aux + 1
-                #print("arriba izq hay una ficha contraria")
 
 
         
@@ -404,7 +394,6 @@ class Tablero:
                         self.flip(cord_x,cord_y, cord_x-aux, cord_y+aux, num_evaluar, "arriba derecha")
                         break
                     aux = aux + 1
-                #print("arriba derecha hay una ficha contraria")
 
 
         
@@ -418,7 +407,6 @@ class Tablero:
                         self.flip(cord_x,cord_y, cord_x+aux, cord_y+aux, num_evaluar, "abajo derecha")
                         break
                     aux = aux + 1
-                #print("abajo derecha hay una ficha contraria")
 
                 
         
@@ -432,4 +420,3 @@ class Tablero:
                         self.flip(cord_x,cord_y, cord_x+aux, cord_y+aux, num_evaluar, "abajo izquierda")
                         break
                     aux = aux + 1
-                #print("abajo izq hay una ficha contraria")

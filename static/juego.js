@@ -4,16 +4,10 @@ var y = 4;
 var posy = y.toString();    
 var concat = posx + posy; 
 
-console.log(concat);
-
 function otro_juego(){
     $(location).attr('href',"/game");
 }
 
-$(document).ready(function(){
-    $("#Q01").val();
-    console.log("cambio en valor tabla");
-});
 
 //se traduce de 0 y 1, y se reemplaza a clase de html
 function actualizar_tablero(tabla_de_actualizacion, tipo_tablero){
@@ -49,7 +43,6 @@ function iniciar_juego(jugador){
     var tablero = matriz_completa()
     if(dificultad != 'vacio'){
         var envio = {"espero": "inicio_juego","ficha jugada" : jugador,"tablero" : tablero, "dificultad" : dificultad };
-        console.log(dificultad)
         $( "#titulo" ).empty();
         $( "#titulo" ).append( "Nivel: "+dificultad+"");
 
@@ -64,7 +57,6 @@ function iniciar_juego(jugador){
         method: 'POST',
         contentType: "application/json;charset=utf-8",
         success: function(json) {
-            console.log("success");
             $('#exampleModal').modal('hide')
             $("#botones").fadeOut( "slow" );
             if(json['turno'] == "Te toca"){
@@ -73,9 +65,7 @@ function iniciar_juego(jugador){
                 }, 500);
             }
             $("#turno_jugador").append(json['turno']);
-            console.log(json['turno'])
-            console.log(json['tablero_espera'])
-            actualizar_tablero(json, 'tablero_espera')
+            actualizar_tablero(json, 'tablero_espera');
         },
         error: function(e) {
             console.log(e.message);
@@ -97,7 +87,6 @@ function movimiento_ayuda(){
             method: 'POST',
             contentType: "application/json;charset=utf-8",
             success: function(json) {
-                console.log(json['mov_ayuda'][0])
                 cord_x= json['mov_ayuda'][0]+1
                 cord_y= transforma_num_a_letra(json['mov_ayuda'][1]+1)
                 createToast('Movimiento recomendado', cord_x+" "+cord_y);
@@ -130,7 +119,6 @@ function transforma_num_a_letra(num){
 function cambiar_ficha(concat){
     var turno = $("#turno_jugador").text();
     var dificultad = $("#titulo").text();
-    console.log(dificultad)
     var tablero = matriz_completa();
     var envio = {"espero": "jugada humano","ficha jugada" : concat,"tablero" : tablero, "turno jugador" : turno, "dificultad" : dificultad };
    
@@ -148,10 +136,9 @@ function cambiar_ficha(concat){
             method: 'POST',
             contentType: "application/json;charset=utf-8",
             success: function(json) {
-                actualizar_tablero(json, 'tablero_espera')
+                actualizar_tablero(json, 'tablero_espera');
                 $("#turno_jugador").empty();
                 $("#turno_jugador").append(json['turno']);    
-                console.log("primero")
                 if(json['turno'] =="El juego ha terminado"){
                     $("#titulo-quien-gano").empty();
                     $("#parrafo-quien-gano").empty();
@@ -176,11 +163,7 @@ function cambiar_ficha(concat){
         var dificultad = $("#titulo").text();
         setTimeout(function(){
             var tablero = matriz_completa();
-    
-        
-            console.log(tablero)
             var mini = {"espero": "jugada humano","tablero" : tablero, "turno jugador" : turno2, "dificultad" : dificultad  };
-            console.log("llegamos")
             $.ajax({
                 type: 'POST',
                 url: "/receiver",
@@ -193,7 +176,6 @@ function cambiar_ficha(concat){
                     actualizar_tablero(json, 'tablero_espera')
                     $("#turno_jugador").empty();
                     $("#turno_jugador").append(json['turno']);
-                    console.log("segundo")
                     if(json['turno'] =="El juego ha terminado"){
                         $("#titulo-quien-gano").empty();
                         $("#parrafo-quien-gano").empty();
@@ -225,9 +207,6 @@ function cambiar_ficha(concat){
             method: 'POST',
             contentType: "application/json;charset=utf-8",
             success: function(json) {
-                console.log("success");
-                console.log(json['turno'])
-                console.log(json['tablero_espera'])
                 if(json['turno'] =="El juego ha terminado"){
                     $("#titulo-quien-gano").empty();
                     $("#parrafo-quien-gano").empty();

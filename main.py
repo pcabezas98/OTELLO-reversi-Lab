@@ -126,10 +126,6 @@ def worker():
              
     #mandar 3 tableros, posible jugada ia (time 2sec.), jugada ia, posible jugada humao
     if  data['turno jugador'] == 'Te toca':
-        print("movimiento aplica humano")
-        #for i in juego_nuevo.tabla:
-        #    print(i)
-        #print("----")
         juego_nuevo.limpia_tablero()
         juego_nuevo.actualiza_movimientos(1)
         #si existe jugada entra al if por que aun quedan jugadas, sino el juego ha terminado
@@ -159,12 +155,11 @@ def worker():
                         turno="Turno Maquina")
        
 
-    #print(data['ficha jugada'])
+
 
     if  data["turno jugador"] == "Jugador 1" or data["turno jugador"] == "Jugador 2":
         ficha_jugada = data['ficha jugada']
         #ACTUALIZAMOS EL TABLERO PERO ANTES LIMPIAMOS LOS -1 O -2
-        print(data["turno jugador"])
         if data["turno jugador"] == "Jugador 1":
             juego_nuevo.limpia_tablero()
             juego_nuevo.aplica_jugada(int(ficha_jugada[1]),int(ficha_jugada[2]),1)
@@ -179,9 +174,6 @@ def worker():
                         turno="Jugador 1", mensaje="El jugador 2 se quedo sin movimientos")
 
                 resultados = juego_nuevo.ganador()
-                print(resultados['ganador'])
-                print(resultados['puntaje blanco'])
-                print(resultados['puntaje negro'])
 
                 return jsonify(tablero_espera=juego_nuevo.tabla,
                                 turno="El juego ha terminado", ganador=resultados['ganador'],
@@ -205,24 +197,15 @@ def worker():
                         turno="Jugador 2", mensaje="El jugador 1 se quedo sin movimientos")
                 
                 resultados = juego_nuevo.ganador()
-                print(resultados['ganador'])
-                print(resultados['puntaje blanco'])
-                print(resultados['puntaje negro'])
 
                 return jsonify(tablero_espera=juego_nuevo.tabla,
                                 turno="El juego ha terminado", ganador=resultados['ganador'],
                                 puntaje_blanco=resultados['puntaje blanco'],
                                 puntaje_negro=resultados['puntaje negro']) 
 
-        pass
+       
     
 
-
-
-
-    
-    #for i in juego_nuevo.tabla:
-    #    print(i)
 
     return jsonify(tablero_espera=juego_nuevo.tabla,
                     turno="ERROR")
@@ -243,19 +226,3 @@ def definir_nivel(data):
     else:
         return "Error"
 
-
-def gameplay():
-    
-    juego_nuevo = Tablero()
-    #for i in juego_nuevo.tabla:
-    #    print(i)
-
-
-    print("")
-    juego_nuevo.aplica_jugada(2,1,1)
-    juego_nuevo.actualiza_movimientos(1)
-    #for i in juego_nuevo.tabla:
-    #    print(i)
-
-    return juego_nuevo
- 
