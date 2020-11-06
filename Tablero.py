@@ -35,9 +35,22 @@ class Tablero:
         self.tabla[3][2] = self.f_negra
         self.tabla[2][3] = self.f_negra
 
-    #aplica la jugada ayuda al tablero
-    def jugada_ayuda(self, cord_x, cord_y,quien_juega):
-        self.tabla[cord_x][cord_y] == -(quien_juega)
+    def ganador(self):
+        negro = 0
+        blanco = 0
+        for i in range(6):
+            for j in range(6):
+                if(self.tabla[i][j] == 1):
+                    negro = negro + 1
+                elif(self.tabla[i][j] == 2):
+                    blanco = blanco + 1
+        if(negro > blanco):
+            return {"ganador": "Negras", "puntaje negro": negro, "puntaje blanco": blanco}
+        if(negro < blanco):
+            return {"ganador": "Blancas", "puntaje negro": negro, "puntaje blanco": blanco}
+        else:
+            return {"ganador": "Empate", "puntaje negro": negro, "puntaje blanco": blanco}
+
 
 
     #traduce el tablero que nos entrega el json y lo transforma al formato de 01-1-2 actualizando el tablero actual

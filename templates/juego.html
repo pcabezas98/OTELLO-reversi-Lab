@@ -109,6 +109,39 @@
   <br>
   <br>
   <br>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: black">
+        <h5 class="modal-title" id="exampleModalLabel"><img src="assets\img\banner.gif" alt="Funny image"  style="width:200px;height:65px;"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="col-sm-12 d-flex justify-content-center">
+        <h3 style="text-decoration: underline;" id="titulo-quien-gano"> Ganaste</h3>
+      </div>
+      <div class="col-sm-12 d-flex justify-content-center">
+        <p id="parrafo-quien-gano">ha ganado el jugar 1</p>
+      </div>
+      <div class="col-sm-12 d-flex justify-content-center">
+        <p id="puntaje-quien-gano">Con un puntaje de: 45 fichas Negras VS 32 Fichas blancas</p>
+      </div>
+      <div class="col-sm-12 d-flex justify-content-center">
+        <div id="tablero-copy"> </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 0px;" data-delay="10000">
   <!-- Position it -->
   <div style="position: absolute; top: 5; right: 0;">
@@ -325,6 +358,9 @@
 <div class="mx-auto" style="width: 85px;">
   <button type="button" id="ayuda"  style="display: none;" class="btn btn-primary btn-sm" onclick="movimiento_ayuda()" >Ayuda</button>
 </div>
+
+
+
 
 
 

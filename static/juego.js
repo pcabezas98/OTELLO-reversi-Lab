@@ -150,6 +150,17 @@ function cambiar_ficha(concat){
                 $("#turno_jugador").empty();
                 $("#turno_jugador").append(json['turno']);    
                 console.log("primero")
+                if(json['turno'] =="El juego ha terminado"){
+                    $("#titulo-quien-gano").empty();
+                    $("#parrafo-quien-gano").empty();
+                    $("#puntaje-quien-gano").empty();
+                    $("#titulo-quien-gano").append("Finish");  
+                    $("#parrafo-quien-gano").append(json['ganador']);  
+                    $("#puntaje-quien-gano").append(`Con un puntaje de: ${json['puntaje_negro']} fichas Negras VS ${json['puntaje_blanco']} Fichas blancas`);  
+                    
+                    $('#exampleModal2').modal('show');
+                    
+                }
             },
             error: function(e) {
                 console.log(e.message);
@@ -178,6 +189,17 @@ function cambiar_ficha(concat){
                     $("#turno_jugador").empty();
                     $("#turno_jugador").append(json['turno']);
                     console.log("segundo")
+                    if(json['turno'] =="El juego ha terminado"){
+                        $("#titulo-quien-gano").empty();
+                        $("#parrafo-quien-gano").empty();
+                        $("#puntaje-quien-gano").empty();
+                        $("#titulo-quien-gano").append("Finish");  
+                        $("#parrafo-quien-gano").append(json['ganador']);  
+                        $("#puntaje-quien-gano").append(`Con un puntaje de: ${json['puntaje_negro']} fichas Negras VS ${json['puntaje_blanco']} Fichas blancas`);  
+                        
+                        $('#exampleModal2').modal('show');
+                        
+                    }
                 },
                 error: function(e) {
                     console.log(e.message);
@@ -198,6 +220,17 @@ function cambiar_ficha(concat){
                 console.log("success");
                 console.log(json['turno'])
                 console.log(json['tablero_espera'])
+                if(json['turno'] =="El juego ha terminado"){
+                    $("#titulo-quien-gano").empty();
+                    $("#parrafo-quien-gano").empty();
+                    $("#puntaje-quien-gano").empty();
+                    $("#titulo-quien-gano").append("Finish");  
+                    $("#parrafo-quien-gano").append("Han ganado las fichas "+json['ganador']);  
+                    $("#puntaje-quien-gano").append(`Con un puntaje de: ${json['puntaje_negro']} fichas Negras VS ${json['puntaje_blanco']} Fichas blancas`);  
+                    
+                    $('#exampleModal2').modal('show');
+                    
+                }
                 actualizar_tablero(json, 'tablero_espera')
                 $("#turno_jugador").empty();
                 $("#turno_jugador").append(json['turno']);
@@ -209,7 +242,6 @@ function cambiar_ficha(concat){
                     }, 1500);
                     
                 }
-                console.log(json['mensaje'])
     
             },
             error: function(e) {
