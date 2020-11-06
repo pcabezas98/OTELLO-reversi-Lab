@@ -6,7 +6,9 @@ var concat = posx + posy;
 
 console.log(concat);
 
-
+function otro_juego(){
+    $(location).attr('href',"/game");
+}
 
 $(document).ready(function(){
     $("#Q01").val();
@@ -157,7 +159,10 @@ function cambiar_ficha(concat){
                     $("#titulo-quien-gano").append("Finish");  
                     $("#parrafo-quien-gano").append(json['ganador']);  
                     $("#puntaje-quien-gano").append(`Con un puntaje de: ${json['puntaje_negro']} fichas Negras VS ${json['puntaje_blanco']} Fichas blancas`);  
-                    
+                    $("#ayuda").empty();
+                    $("#ayuda").append(`Volver a jugar`);  
+                    $("#ayuda").attr('class', 'btn btn-warning btn-sm');
+                    $("#ayuda").attr('onclick', 'otro_juego()');
                     $('#exampleModal2').modal('show');
                     
                 }
@@ -196,7 +201,10 @@ function cambiar_ficha(concat){
                         $("#titulo-quien-gano").append("Finish");  
                         $("#parrafo-quien-gano").append(json['ganador']);  
                         $("#puntaje-quien-gano").append(`Con un puntaje de: ${json['puntaje_negro']} fichas Negras VS ${json['puntaje_blanco']} Fichas blancas`);  
-                        
+                        $("#ayuda").empty();
+                        $("#ayuda").append(`Volver a jugar`);  
+                        $("#ayuda").attr('class', 'btn btn-warning btn-sm');
+                        $("#ayuda").attr('onclick', 'otro_juego()');
                         $('#exampleModal2').modal('show');
                         
                     }
@@ -227,9 +235,12 @@ function cambiar_ficha(concat){
                     $("#titulo-quien-gano").append("Finish");  
                     $("#parrafo-quien-gano").append("Han ganado las fichas "+json['ganador']);  
                     $("#puntaje-quien-gano").append(`Con un puntaje de: ${json['puntaje_negro']} fichas Negras VS ${json['puntaje_blanco']} Fichas blancas`);  
-                    
+                    $("#ayuda").empty();
+                    $("#ayuda").append(`Volver a jugar`);  
+                    $("#ayuda").attr('class', 'btn btn-warning btn-sm');
+                    $("#ayuda").attr('onclick', 'otro_juego()');
+                    $("#ayuda").fadeIn("slow");
                     $('#exampleModal2').modal('show');
-                    
                 }
                 actualizar_tablero(json, 'tablero_espera')
                 $("#turno_jugador").empty();
